@@ -1,5 +1,5 @@
 # Important notice
-Unfortunately, we decided to discontinue support for this project; SoundCloud will no longer accept pull requests or make public releases of java-api-wrapper. If you're using java-api-wrapper in one of your projects, we suggest you fork the project in order to perform any necessary maintenance.
+Unfortunately, we decided to discontinue support for this project; SoundCloud will no longer accept pull requests or make public releases of CocoaSoundCloudAPI. If you're using CocoaSoundCloudAPI in one of your projects, we suggest you fork the project in order to perform any necessary maintenance.
 
 # The SoundCloud API for Cocoa
 
