@@ -70,11 +70,28 @@ sendingProgressHandler:(SCRequestSendingProgressHandler)aProgressHandler
     
     NSAssert1([[aResource scheme] isEqualToString:@"https"], @"Resource '%@' is invalid because the scheme is not 'https'.", aResource);
     
-    NXOAuth2Request *request = [[NXOAuth2Request alloc] initWithResource:aResource method:theMethod parameters:someParameters];
-    request.account = anAccount.oauthAccount;
-    [request performRequestWithSendingProgressHandler:aProgressHandler
-                                      responseHandler:aResponseHandler];
-    return [request autorelease];
+    NXOAuth2Request *nRequest = [[NXOAuth2Request alloc] initWithResource:aResource method:theMethod parameters:nil];
+    nRequest.account = anAccount.oauthAccount;
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:aResource];
+    [request setHTTPMethod:theMethod];
+    
+    if (someParameters) {
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [request setHTTPBody:[NSJSONSerialization dataWithJSONObject:someParameters options:NSJSONWritingPrettyPrinted error:nil]];
+    }
+    
+    NXOAuth2Connection *connection = [[NXOAuth2Connection alloc] initWithRequest:request
+                                                               requestParameters:nil
+                                                                     oauthClient:anAccount.oauthAccount.oauthClient
+                                                          sendingProgressHandler:aProgressHandler
+                                                                 responseHandler:aResponseHandler];
+    connection.delegate = nRequest;
+    
+    [nRequest setValue:connection forKey:@"connection"];
+    [nRequest setValue:nRequest forKey:@"me"];
+    
+    return [nRequest autorelease];
 }
 
 + (void)cancelRequest:(id)request;
