@@ -31,7 +31,7 @@
 #import "SCRequest.h"
 
 @interface SCRequest ()
-@property (nonatomic, retain) NXOAuth2Request *oauthRequest;
+@property (nonatomic) NXOAuth2Request *oauthRequest;
 @end
 
 @implementation SCRequest
@@ -91,7 +91,7 @@ sendingProgressHandler:(SCRequestSendingProgressHandler)aProgressHandler
     [nRequest setValue:connection forKey:@"connection"];
     [nRequest setValue:nRequest forKey:@"me"];
     
-    return [nRequest autorelease];
+    return nRequest;
 }
 
 + (void)cancelRequest:(id)request;
@@ -152,7 +152,7 @@ sendingProgressHandler:(SCRequestSendingProgressHandler)aProgressHandler
 - (SCAccount *)account;
 {
     if (self.oauthRequest.account) {
-        return [[[SCAccount alloc] initWithOAuthAccount:self.oauthRequest.account] autorelease];
+        return [[SCAccount alloc] initWithOAuthAccount:self.oauthRequest.account];
     } else {
         return nil;
     }

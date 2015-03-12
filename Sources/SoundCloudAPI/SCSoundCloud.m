@@ -85,7 +85,6 @@ NSString * const SCSoundCloudDidFailToRequestAccessNotification = @"SCSoundCloud
 - (void)dealloc;
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [super dealloc];
 }
 
 #pragma mark Accessors
@@ -94,7 +93,7 @@ NSString * const SCSoundCloudDidFailToRequestAccessNotification = @"SCSoundCloud
 {    
     NSArray *oauthAccounts = [[NXOAuth2AccountStore sharedStore] accountsWithAccountType:kSCAccountType];
     if ([oauthAccounts count] > 0) {
-        return [[[SCAccount alloc] initWithOAuthAccount:[oauthAccounts objectAtIndex:0]] autorelease];
+        return [[SCAccount alloc] initWithOAuthAccount:[oauthAccounts objectAtIndex:0]];
     } else {
         return nil;
     }

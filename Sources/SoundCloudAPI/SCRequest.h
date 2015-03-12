@@ -59,11 +59,11 @@ sendingProgressHandler:(SCRequestSendingProgressHandler)progressHandler
 
 #pragma mark Accessors
 
-@property (nonatomic, readwrite, retain) SCAccount *account;
+@property (nonatomic, readwrite) SCAccount *account;
 
 @property (nonatomic, assign) SCRequestMethod requestMethod;
-@property (nonatomic, readwrite, retain) NSURL *resource;
-@property (nonatomic, readwrite, retain) NSDictionary *parameters;
+@property (nonatomic, readwrite) NSURL *resource;
+@property (nonatomic, readwrite) NSDictionary *parameters;
 
 
 #pragma mark Signed NSURLRequest

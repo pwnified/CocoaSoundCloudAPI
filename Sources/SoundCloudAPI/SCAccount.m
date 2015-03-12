@@ -35,12 +35,6 @@ NSString * const SCAccountDidFailToGetAccessToken = @"SCAccountDidFailToGetAcces
 
 @implementation SCAccount
 
-- (void)dealloc;
-{
-    [oauthAccount release];
-    [super dealloc];
-}
-
 #pragma mark Accessors
 
 - (NSString *)identifier;

@@ -42,7 +42,7 @@ NSString * const SCAccountDidChangeUserInfo = @"SCAccountDidChangeUserInfo";
 {
     self = [super init];
     if (self) {
-        oauthAccount = [anAccount retain];
+        oauthAccount = anAccount;
     }
     return self;
 }
@@ -54,8 +54,6 @@ NSString * const SCAccountDidChangeUserInfo = @"SCAccountDidChangeUserInfo";
 
 - (void)setOauthAccount:(NXOAuth2Account *)anOAuthAccount;
 {
-    [anOAuthAccount retain];
-    [oauthAccount release];
     oauthAccount = anOAuthAccount;
 }
 
