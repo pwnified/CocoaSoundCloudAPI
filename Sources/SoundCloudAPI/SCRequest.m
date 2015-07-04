@@ -18,17 +18,35 @@
  * 
  */
 
-#if TARGET_OS_IPHONE
-#import "NXOAuth2.h"
-#else
-#import "NXOAuth2.h"
-#endif
+#import <NXOAuth2Client/NXOAuth2.h>
+
 
 #import "SCAccount.h"
 #import "SCAccount+Private.h"
 #import "SCConstants.h"
 
 #import "SCRequest.h"
+
+//this subclass just sets the HTTP body to JSON for PUT, POST and PATCH requests
+@interface SCOAuthRequest : NXOAuth2Request
+@end
+@implementation SCOAuthRequest
+- (void)applyParameters:(NSDictionary *)someParameters onRequest:(NSMutableURLRequest *)aRequest;
+{
+    if (!someParameters) return;
+
+    NSString *httpMethod = [aRequest HTTPMethod];
+    if (![@[@"POST",@"PUT",@"PATCH"] containsObject: [httpMethod uppercaseString]]) {
+        aRequest.URL = [aRequest.URL nxoauth2_URLByAddingParameters:someParameters];
+    } else {
+        [aRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [aRequest setHTTPBody:[NSJSONSerialization dataWithJSONObject:someParameters options:NSJSONWritingPrettyPrinted error:nil]];
+    }
+}
+
+@end
+
+
 
 @interface SCRequest ()
 @property (nonatomic) NXOAuth2Request *oauthRequest;
@@ -70,28 +88,11 @@ sendingProgressHandler:(SCRequestSendingProgressHandler)aProgressHandler
     
     NSAssert1([[aResource scheme] isEqualToString:@"https"], @"Resource '%@' is invalid because the scheme is not 'https'.", aResource);
     
-    NXOAuth2Request *nRequest = [[NXOAuth2Request alloc] initWithResource:aResource method:theMethod parameters:nil];
-    nRequest.account = anAccount.oauthAccount;
+    SCOAuthRequest *request = [[SCOAuthRequest alloc] initWithResource:aResource method:theMethod parameters:someParameters];
+    request.account = anAccount.oauthAccount;
+    [request performRequestWithSendingProgressHandler:aProgressHandler responseHandler:aResponseHandler];
     
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:aResource];
-    [request setHTTPMethod:theMethod];
-    
-    if (someParameters) {
-        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        [request setHTTPBody:[NSJSONSerialization dataWithJSONObject:someParameters options:NSJSONWritingPrettyPrinted error:nil]];
-    }
-    
-    NXOAuth2Connection *connection = [[NXOAuth2Connection alloc] initWithRequest:request
-                                                               requestParameters:nil
-                                                                     oauthClient:anAccount.oauthAccount.oauthClient
-                                                          sendingProgressHandler:aProgressHandler
-                                                                 responseHandler:aResponseHandler];
-    connection.delegate = nRequest;
-    
-    [nRequest setValue:connection forKey:@"connection"];
-    [nRequest setValue:nRequest forKey:@"me"];
-    
-    return nRequest;
+    return request;
 }
 
 + (void)cancelRequest:(id)request;
