@@ -4,3 +4,5 @@ build
 *.mode1v3
 .svn
 project.xcworkspace
+Pods
+Podfile*
