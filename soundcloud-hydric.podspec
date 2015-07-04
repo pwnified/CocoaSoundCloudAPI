@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-  	s.name = 'SoundCloud-Cocoa-API-Hydric'
+  	s.name = 'soundcloud-hydric'
 	  s.summary = 'Hydric fork of the Soundcloud Cocoa API.'
   	s.version = '1.1.1'
   	s.license = { :type => 'propietary', :text => 'https://developers.soundcloud.com/docs/api/terms-of-use' }
