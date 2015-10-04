@@ -31,6 +31,7 @@ extern NSString * const kSCConfigurationRedirectURL;
 extern NSString * const kSCConfigurationSandbox;
 extern NSString * const kSCConfigurationAPIURL;
 extern NSString * const kSCConfigurationAuthorizeURL;
+extern NSString * const kSCConfigurationCustomHeaders;
 
 extern NSString * const kSCSoundCloudAPIURL;
 extern NSString * const kSCSoundCloudAccessTokenURL;

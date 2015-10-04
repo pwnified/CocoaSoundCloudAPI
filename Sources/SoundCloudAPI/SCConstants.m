@@ -31,6 +31,7 @@ NSString * const kSCConfigurationRedirectURL = @"kSCConfigurationRedirectURL";
 NSString * const kSCConfigurationSandbox = @"kSCConfigurationSandbox";
 NSString * const kSCConfigurationAPIURL = @"kSCConfigurationAPIURL";
 NSString * const kSCConfigurationAuthorizeURL = @"kSCConfigurationAuthorizeURL";
+NSString * const kSCConfigurationCustomHeaders = @"kSCConfigurationCustomHeaders";
 
 NSString * const kSCSoundCloudAPIURL = @"https://api.soundcloud.com/";
 NSString * const kSCSoundCloudAccessTokenURL = @"https://api.soundcloud.com/oauth2/token";

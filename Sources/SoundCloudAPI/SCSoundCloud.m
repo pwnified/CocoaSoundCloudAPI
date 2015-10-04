@@ -126,15 +126,18 @@ NSString * const SCSoundCloudDidFailToRequestAccessNotification = @"SCSoundCloud
         redirectURL:(NSURL *)aRedirectURL;
 {
     NSMutableDictionary *config = [NSMutableDictionary dictionary];
-    
-    [config setObject:aClientID forKey:kNXOAuth2AccountStoreConfigurationClientID];
-    [config setObject:aSecret forKey:kNXOAuth2AccountStoreConfigurationSecret];
-    [config setObject:aRedirectURL forKey:kNXOAuth2AccountStoreConfigurationRedirectURL];
+	
+	config[kNXOAuth2AccountStoreConfigurationClientID] = aClientID;
+	config[kNXOAuth2AccountStoreConfigurationSecret] = aSecret;
+	config[kNXOAuth2AccountStoreConfigurationRedirectURL] = aRedirectURL;
+	
+	config[kNXOAuth2AccountStoreConfigurationAuthorizeURL] = [NSURL URLWithString:kSCSoundCloudAuthURL];
+	config[kNXOAuth2AccountStoreConfigurationTokenURL] = [NSURL URLWithString:kSCSoundCloudAccessTokenURL];
+	config[kSCConfigurationAPIURL] = [NSURL URLWithString:kSCSoundCloudAPIURL];
 
-    [config setObject:[NSURL URLWithString:kSCSoundCloudAuthURL] forKey:kNXOAuth2AccountStoreConfigurationAuthorizeURL];
-    [config setObject:[NSURL URLWithString:kSCSoundCloudAccessTokenURL] forKey:kNXOAuth2AccountStoreConfigurationTokenURL];
-    [config setObject:[NSURL URLWithString:kSCSoundCloudAPIURL] forKey:kSCConfigurationAPIURL];
-    
+	// SoundCloud doesn't accept json anymore, use a custom header to configure the OAuth2 with application/x-www-form-urlencoded
+	config[kNXOAuth2AccountStoreConfigurationCustomHeaderFields] = @{@"Content-type":@"application/x-www-form-urlencoded"};
+
     [[NXOAuth2AccountStore sharedStore] setConfiguration:config forAccountType:kSCAccountType];
 }
 
