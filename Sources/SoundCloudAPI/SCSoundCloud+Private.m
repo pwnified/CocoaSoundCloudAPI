@@ -50,20 +50,20 @@
     NSDictionary *configuration = [[NXOAuth2AccountStore sharedStore] configurationForAccountType:kSCAccountType];
     
     NSMutableDictionary *config = [NSMutableDictionary dictionary];
-    
-    [config setObject:[configuration objectForKey:kNXOAuth2AccountStoreConfigurationClientID] forKey:kSCConfigurationClientID];
-    [config setObject:[configuration objectForKey:kNXOAuth2AccountStoreConfigurationSecret] forKey:kSCConfigurationSecret];
-    [config setObject:[configuration objectForKey:kNXOAuth2AccountStoreConfigurationRedirectURL] forKey:kSCConfigurationRedirectURL];
-    
-    [config setObject:[configuration objectForKey:kNXOAuth2AccountStoreConfigurationAuthorizeURL] forKey:kSCConfigurationAuthorizeURL];
-    
-    if ([[configuration objectForKey:kNXOAuth2AccountStoreConfigurationTokenURL] isEqual:[NSURL URLWithString:kSCSoundCloudSandboxAccessTokenURL]]) {
-        [config setObject:[NSNumber numberWithBool:YES] forKey:kSCConfigurationSandbox];
+	
+	config[kSCConfigurationClientID] = configuration[kNXOAuth2AccountStoreConfigurationClientID];
+	config[kSCConfigurationSecret] = configuration[kNXOAuth2AccountStoreConfigurationSecret];
+	config[kSCConfigurationRedirectURL] = configuration[kNXOAuth2AccountStoreConfigurationRedirectURL];
+	config[kSCConfigurationAuthorizeURL] = configuration[kNXOAuth2AccountStoreConfigurationAuthorizeURL];
+	config[kSCConfigurationCustomHeaders] = configuration[kNXOAuth2AccountStoreConfigurationCustomHeaderFields];
+	
+    if ([configuration[kNXOAuth2AccountStoreConfigurationTokenURL] isEqual:[NSURL URLWithString:kSCSoundCloudSandboxAccessTokenURL]]) {
+		config[kSCConfigurationSandbox] = @YES;
     } else {
-        [config setObject:[NSNumber numberWithBool:NO] forKey:kSCConfigurationSandbox];
+		config[kSCConfigurationSandbox] = @NO;
     }
     
-    [config setObject:[configuration objectForKey:kSCConfigurationAPIURL] forKey:kSCConfigurationAPIURL];
+	config[kSCConfigurationAPIURL] = configuration[kSCConfigurationAPIURL];
     
     return config;
 }
