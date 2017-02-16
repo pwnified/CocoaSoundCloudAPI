@@ -127,6 +127,13 @@ sendingProgressHandler:(SCRequestSendingProgressHandler)aProgressHandler
     return self;
 }
 
+- (void)dealloc
+{
+	[self.oauthRequest cancel];
+	self.oauthRequest = nil;
+	[super dealloc];
+}
+
 
 #pragma mark Accessors
 
