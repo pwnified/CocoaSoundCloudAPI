@@ -1,6 +1,5 @@
-build
-
 # xcode noise
+build
 build/*
 *.xcclassmodel/*
 *.pbxuser
@@ -8,15 +7,13 @@ build/*
 *.mode2v3
 *.perspectivev3
 *xcodeproj/project.xcworkspace
-*xcodeproj/xcuserdata
-
-# old skool
-.svn
+*.xcodeproj/xcuserdata
+*.xcodeproj/xcshareddata
 
 # osx noise
 .DS_Store
 profile
 
-# Dreamweaver noise
-dwsync.xml
-_notes
+
+Pods
+Podfile*

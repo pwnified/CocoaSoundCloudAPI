@@ -21,7 +21,7 @@
 #if TARGET_OS_IPHONE
 #import "NXOAuth2.h"
 #else
-#import <OAuth2Client/NXOAuth2.h>
+#import "NXOAuth2.h"
 #endif
 
 #import "SCAccount+Private.h"
@@ -34,12 +34,6 @@ NSString * const SCAccountDidFailToGetAccessToken = @"SCAccountDidFailToGetAcces
 #pragma mark -
 
 @implementation SCAccount
-
-- (void)dealloc;
-{
-    [oauthAccount release];
-    [super dealloc];
-}
 
 #pragma mark Accessors
 

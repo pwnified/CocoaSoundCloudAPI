@@ -21,7 +21,7 @@
 #if TARGET_OS_IPHONE
 #import "NXOAuth2.h"
 #else
-#import <OAuth2Client/NXOAuth2.h>
+#import "NXOAuth2.h"
 #endif
 
 #import "SCSoundCloud.h"
@@ -42,7 +42,7 @@ NSString * const SCAccountDidChangeUserInfo = @"SCAccountDidChangeUserInfo";
 {
     self = [super init];
     if (self) {
-        oauthAccount = [anAccount retain];
+        oauthAccount = anAccount;
     }
     return self;
 }
@@ -54,8 +54,6 @@ NSString * const SCAccountDidChangeUserInfo = @"SCAccountDidChangeUserInfo";
 
 - (void)setOauthAccount:(NXOAuth2Account *)anOAuthAccount;
 {
-    [anOAuthAccount retain];
-    [oauthAccount release];
     oauthAccount = anOAuthAccount;
 }
 

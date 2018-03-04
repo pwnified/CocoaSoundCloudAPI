@@ -18,11 +18,8 @@
  * 
  */
 
-#if TARGET_OS_IPHONE
-#import "NXOAuth2.h"
-#else
 #import <OAuth2Client/NXOAuth2.h>
-#endif
+
 
 #import "SCAccount.h"
 #import "SCAccount+Private.h"
@@ -30,8 +27,29 @@
 
 #import "SCRequest.h"
 
+//this subclass just sets the HTTP body to JSON for PUT, POST and PATCH requests
+@interface SCOAuthRequest : NXOAuth2Request
+@end
+@implementation SCOAuthRequest
+- (void)applyParameters:(NSDictionary *)someParameters onRequest:(NSMutableURLRequest *)aRequest;
+{
+    if (!someParameters) return;
+
+    NSString *httpMethod = [aRequest HTTPMethod];
+    if (![@[@"POST",@"PUT",@"PATCH"] containsObject: [httpMethod uppercaseString]]) {
+        aRequest.URL = [aRequest.URL nxoauth2_URLByAddingParameters:someParameters];
+    } else {
+        [aRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [aRequest setHTTPBody:[NSJSONSerialization dataWithJSONObject:someParameters options:NSJSONWritingPrettyPrinted error:nil]];
+    }
+}
+
+@end
+
+
+
 @interface SCRequest ()
-@property (nonatomic, retain) NXOAuth2Request *oauthRequest;
+@property (nonatomic) NXOAuth2Request *oauthRequest;
 @end
 
 @implementation SCRequest
@@ -70,11 +88,11 @@ sendingProgressHandler:(SCRequestSendingProgressHandler)aProgressHandler
     
     NSAssert1([[aResource scheme] isEqualToString:@"https"], @"Resource '%@' is invalid because the scheme is not 'https'.", aResource);
     
-    NXOAuth2Request *request = [[NXOAuth2Request alloc] initWithResource:aResource method:theMethod parameters:someParameters];
+    SCOAuthRequest *request = [[SCOAuthRequest alloc] initWithResource:aResource method:theMethod parameters:someParameters];
     request.account = anAccount.oauthAccount;
-    [request performRequestWithSendingProgressHandler:aProgressHandler
-                                      responseHandler:aResponseHandler];
-    return [request autorelease];
+    [request performRequestWithSendingProgressHandler:aProgressHandler responseHandler:aResponseHandler];
+    
+    return request;
 }
 
 + (void)cancelRequest:(id)request;
@@ -131,7 +149,6 @@ sendingProgressHandler:(SCRequestSendingProgressHandler)aProgressHandler
 {
 	[self.oauthRequest cancel];
 	self.oauthRequest = nil;
-	[super dealloc];
 }
 
 
@@ -142,7 +159,7 @@ sendingProgressHandler:(SCRequestSendingProgressHandler)aProgressHandler
 - (SCAccount *)account;
 {
     if (self.oauthRequest.account) {
-        return [[[SCAccount alloc] initWithOAuthAccount:self.oauthRequest.account] autorelease];
+        return [[SCAccount alloc] initWithOAuthAccount:self.oauthRequest.account];
     } else {
         return nil;
     }
