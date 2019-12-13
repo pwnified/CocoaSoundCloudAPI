@@ -21,8 +21,6 @@
 		F6525B8013D5B34A00ACAE8F /* SCSoundCloud+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = F6525B7C13D5B34A00ACAE8F /* SCSoundCloud+Private.m */; };
 		F6E88D2613D41F8A008B9CD5 /* SCConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = F6E88D2313D41F8A008B9CD5 /* SCConstants.h */; };
 		F6E88D2813D41F8A008B9CD5 /* SCConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = F6E88D2413D41F8A008B9CD5 /* SCConstants.m */; };
-		F6E88D2D13D43A74008B9CD5 /* SCAccount+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = F6E88D2A13D43A73008B9CD5 /* SCAccount+Private.h */; };
-		F6E88D3213D43B67008B9CD5 /* SCAccount+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = F6E88D3013D43B67008B9CD5 /* SCAccount+Private.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,8 +42,6 @@
 		F6622B6613D84A2B0057ADD0 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		F6E88D2313D41F8A008B9CD5 /* SCConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SCConstants.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F6E88D2413D41F8A008B9CD5 /* SCConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SCConstants.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		F6E88D2A13D43A73008B9CD5 /* SCAccount+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SCAccount+Private.h"; sourceTree = "<group>"; };
-		F6E88D3013D43B67008B9CD5 /* SCAccount+Private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SCAccount+Private.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,8 +134,6 @@
 			children = (
 				F6525B7B13D5B34A00ACAE8F /* SCSoundCloud+Private.h */,
 				F6525B7C13D5B34A00ACAE8F /* SCSoundCloud+Private.m */,
-				F6E88D2A13D43A73008B9CD5 /* SCAccount+Private.h */,
-				F6E88D3013D43B67008B9CD5 /* SCAccount+Private.m */,
 			);
 			name = Private;
 			sourceTree = "<group>";
@@ -157,7 +151,6 @@
 				F60811EA13D051420040EC66 /* SCAccount.h in Headers */,
 				F60811F013D051840040EC66 /* SCRequest.h in Headers */,
 				F6E88D2613D41F8A008B9CD5 /* SCConstants.h in Headers */,
-				F6E88D2D13D43A74008B9CD5 /* SCAccount+Private.h in Headers */,
 				F6525B7E13D5B34A00ACAE8F /* SCSoundCloud+Private.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -220,7 +213,6 @@
 				F60811EC13D051420040EC66 /* SCAccount.m in Sources */,
 				F60811F213D051840040EC66 /* SCRequest.m in Sources */,
 				F6E88D2813D41F8A008B9CD5 /* SCConstants.m in Sources */,
-				F6E88D3213D43B67008B9CD5 /* SCAccount+Private.m in Sources */,
 				F6525B8013D5B34A00ACAE8F /* SCSoundCloud+Private.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -22,7 +22,6 @@
 
 
 #import "SCAccount.h"
-#import "SCAccount+Private.h"
 #import "SCConstants.h"
 
 #import "SCRequest.h"

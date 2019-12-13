@@ -18,28 +18,33 @@
  * 
  */
 
-#if TARGET_OS_IPHONE
 #import "NXOAuth2.h"
-#else
-#import "NXOAuth2.h"
-#endif
-
-#import "SCAccount+Private.h"
 #import "SCAccount.h"
 
 #pragma mark Notifications
 
 NSString * const SCAccountDidFailToGetAccessToken = @"SCAccountDidFailToGetAccessToken";
 
-#pragma mark -
-
 @implementation SCAccount
 
-#pragma mark Accessors
+- (id)initWithOAuthAccount:(NXOAuth2Account *)anAccount {
+    self = [super init];
+    if (self) {
+        _oauthAccount = anAccount;
+    }
+    return self;
+}
 
-- (NSString *)identifier;
-{
-    return self.oauthAccount.identifier;
+- (NSString *)identifier {
+    return _oauthAccount.identifier;
+}
+
+- (NSDictionary *)userInfo {
+    return (NSDictionary *)_oauthAccount.userData;
+}
+
+- (void)setUserInfo:(NSDictionary *)userInfo {
+    _oauthAccount.userData = userInfo;
 }
 
 @end

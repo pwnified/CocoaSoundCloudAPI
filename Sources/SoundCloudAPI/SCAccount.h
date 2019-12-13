@@ -26,13 +26,9 @@ extern NSString * const SCAccountDidFailToGetAccessToken;
 
 @class NXOAuth2Account;
 
-@interface SCAccount : NSObject {
-@private
-    NXOAuth2Account *oauthAccount;
-}
-
-#pragma mark Accessors
-
+@interface SCAccount : NSObject
+- (id)initWithOAuthAccount:(NXOAuth2Account *)account;
+@property (nonatomic, readonly) NXOAuth2Account *oauthAccount;
 @property (nonatomic, readonly) NSString *identifier;
-
+@property (nonatomic, copy) NSDictionary *userInfo;
 @end
